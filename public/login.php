@@ -6,7 +6,7 @@ require_once __DIR__ . '/../includes/Auth.php';
 
 // Si ya está logueado, redirigir
 if (Auth::isLoggedIn()) {
-    header('Location: index.php');
+    header('Location: /index.php');
     exit;
 }
 
@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     
     if (Auth::login($identificador, $password)) {
-        header('Location: index.php');
+        header('Location: /index.php');
         exit;
     } else {
-        header('Location: login.php?error=invalid');
+        header('Location: /login.php?error=invalid');
         exit;
     }
 }

@@ -60,7 +60,7 @@ class Auth {
     
     public static function requireLogin() {
         if (!self::isLoggedIn()) {
-            header('Location: /public/login.php');
+            header('Location: /login.php');
             exit;
         }
     }
@@ -68,7 +68,7 @@ class Auth {
     public static function requireDirectivo() {
         self::requireLogin();
         if (!self::isDirectivo()) {
-            header('Location: /public/index.php?error=no_permission');
+            header('Location: /index.php?error=no_permission');
             exit;
         }
     }

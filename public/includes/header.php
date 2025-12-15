@@ -5,11 +5,11 @@
                 <h1>Proyecto CAD</h1>
             </div>
             <nav class="main-nav">
-                <a href="/public/index.php">Inicio</a>
+                <a href="/index.php">Inicio</a>
                 <?php if (Auth::isDirectivo()): ?>
-                    <a href="/public/usuarios/listar.php">Usuarios</a>
+                    <a href="/usuarios/listar.php">Usuarios</a>
                 <?php endif; ?>
-                <a href="/public/auth/logout.php" class="btn-logout">Cerrar Sesión</a>
+                <a href="/auth/logout.php" class="btn-logout">Cerrar Sesión</a>
             </nav>
         </div>
     </div>

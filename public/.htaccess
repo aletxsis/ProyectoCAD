@@ -1,0 +1,15 @@
+# Redirigir raíz a login.php
+DirectoryIndex login.php index.php
+
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Prevenir acceso directo a archivos sensibles
+RewriteCond %{REQUEST_URI} ^/(config|includes|database)
+RewriteRule ^(.*)$ - [F,L]
+
+# Protección contra accesos no autorizados
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
