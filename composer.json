@@ -1,0 +1,17 @@
+{
+    "name": "proyectocad/sistema-gestion",
+    "description": "Sistema de gestión de usuarios para Proyecto CAD",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "classmap": [
+            "includes/"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

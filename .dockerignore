@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Scripts
+*.bat
+*.sh
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Node modules (si se usan)
+node_modules
+
+# Vendor (si se usa Composer)
+vendor/
+
+# Testing
+tests/
+*.test.php
+
+# Database backups
+*.sql
+!database/init.sql
+
+# Environment
+.env
+.env.local
+.env.*.local

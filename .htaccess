@@ -1,0 +1,26 @@
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Redirigir todo a HTTPS (descomenta en producción)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Prevenir acceso directo a archivos .php en ciertos directorios
+RewriteCond %{REQUEST_URI} ^/(config|includes|database)
+RewriteRule ^(.*)$ - [F,L]
+
+# Permitir acceso a archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Protección contra accesos no autorizados
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Configuración de PHP
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_value max_input_time 300
