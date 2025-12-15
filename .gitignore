@@ -1,0 +1,27 @@
+# PHP
+vendor/
+composer.lock
+
+# Configuración sensible
+config/database.php
+.env
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+.docker-data/
+
+# Azure
+.azure/
