@@ -1,0 +1,11 @@
+{
+  "name": "proyectocad",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de usuarios - Proyecto CAD",
+  "engines": {
+    "php": "8.2"
+  },
+  "scripts": {
+    "start": "php -S 0.0.0.0:8080 -t public"
+  }
+}
