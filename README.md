@@ -101,9 +101,26 @@ Esto iniciará:
 
 Abre tu navegador en: http://localhost:8090
 
-**Credenciales de acceso por defecto:**
-- Usuario: `admin`
-- Contraseña: `admin123`
+**Credenciales de acceso (todos con contraseña: admin123):**
+
+**Directivos:**
+- `admin` - Carlos Rodríguez Martínez (Director General)
+- `director1` - Ana María González López (Directora de Operaciones)
+- `director2` - Roberto Sánchez Pérez (Director de RRHH)
+
+**Gestión:**
+- `gestor1` - María Elena Torres Ramírez (Gerente de Ventas)
+- `gestor2` - Juan Carlos Mendoza Silva (Gerente de Marketing)
+- `gestor3` - Patricia Hernández Cruz (Gerente de Finanzas)
+- `gestor4` - Luis Alberto Flores Vega (Gerente de Logística)
+- `gestor5` - Carmen Beatriz Morales Díaz (Gerente de RRHH)
+
+**Operativos:**
+- `operador1` - Diego Alejandro Castro Ruiz (Analista de Datos)
+- `operador2` - Sofía Gabriela Ortiz Medina (Coordinadora)
+- `operador3` - Miguel Ángel Vargas López (Técnico de Soporte)
+- `operador4` - Daniela Isabel Ramos Gutiérrez (Asistente Admin)
+- `operador5` - Fernando José Jiménez Navarro (Operador)
 
 ## 👥 Tipos de Usuario
 

@@ -34,7 +34,7 @@ Ve a: http://localhost:8090
 | Servicio | URL | Descripción |
 |----------|-----|-------------|
 | Aplicación Web | http://localhost:8090 | Sistema principal |
-| phpMyAdmin | http://localhost:8081 | Gestión de BD |
+| phpMyAdmin | http://localhost:8082 | Gestión de BD |
 | Verificador | http://localhost:8090/verificar.php | Diagnóstico |
 
 ## 👤 Gestión de Usuarios

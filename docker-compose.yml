@@ -42,7 +42,7 @@ services:
     container_name: proyectocad_phpmyadmin
     restart: always
     ports:
-      - "8081:80"
+      - "8082:80"
     environment:
       PMA_HOST: db
       PMA_PORT: 3306

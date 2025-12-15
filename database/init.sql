@@ -56,9 +56,29 @@ CREATE TABLE IF NOT EXISTS `auditoria_usuarios` (
   KEY `usuario_modificador_id` (`usuario_modificador_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Insertar usuario directivo por defecto
--- Contraseña: admin123
+-- Insertar usuarios de ejemplo
+-- IMPORTANTE: Todas las contraseñas son: admin123
+
+-- Usuario Directivo (puede gestionar usuarios de tipo Gestión)
 INSERT INTO `usuarios` (`identificador`, `nombre_completo`, `password`, `foto_perfil`, `cargo`, `tipo_usuario_id`) VALUES
-('admin', 'Administrador del Sistema', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Director General', 1);
+('admin', 'Carlos Rodríguez Martínez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Director General', 1),
+('director1', 'Ana María González López', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Directora de Operaciones', 1),
+('director2', 'Roberto Sánchez Pérez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Director de Recursos Humanos', 1);
+
+-- Usuarios de Gestión (gestionados por directivos)
+INSERT INTO `usuarios` (`identificador`, `nombre_completo`, `password`, `foto_perfil`, `cargo`, `tipo_usuario_id`) VALUES
+('gestor1', 'María Elena Torres Ramírez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Gerente de Ventas', 2),
+('gestor2', 'Juan Carlos Mendoza Silva', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Gerente de Marketing', 2),
+('gestor3', 'Patricia Hernández Cruz', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Gerente de Finanzas', 2),
+('gestor4', 'Luis Alberto Flores Vega', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Gerente de Logística', 2),
+('gestor5', 'Carmen Beatriz Morales Díaz', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Gerente de Recursos Humanos', 2);
+
+-- Usuarios Operativos (usuarios del sistema)
+INSERT INTO `usuarios` (`identificador`, `nombre_completo`, `password`, `foto_perfil`, `cargo`, `tipo_usuario_id`) VALUES
+('operador1', 'Diego Alejandro Castro Ruiz', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Analista de Datos', 3),
+('operador2', 'Sofía Gabriela Ortiz Medina', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Coordinadora de Proyectos', 3),
+('operador3', 'Miguel Ángel Vargas López', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Técnico de Soporte', 3),
+('operador4', 'Daniela Isabel Ramos Gutiérrez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Asistente Administrativa', 3),
+('operador5', 'Fernando José Jiménez Navarro', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 'Operador de Sistema', 3);
 
 COMMIT;

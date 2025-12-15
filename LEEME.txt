@@ -91,7 +91,7 @@
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
    🌐 Aplicación Web:    http://localhost:8090
-   🗄️  phpMyAdmin:        http://localhost:8081
+   🗄️  phpMyAdmin:        http://localhost:8082
    🔍 Verificador:       http://localhost:8090/verificar.php
    
    MySQL:
