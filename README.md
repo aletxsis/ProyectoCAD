@@ -99,7 +99,7 @@ Esto iniciará:
 
 4. **Acceder a la aplicación**
 
-Abre tu navegador en: http://localhost:8080
+Abre tu navegador en: http://localhost:8090
 
 **Credenciales de acceso por defecto:**
 - Usuario: `admin`

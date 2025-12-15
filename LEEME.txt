@@ -90,14 +90,14 @@
 📊 SERVICIOS DISPONIBLES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-   🌐 Aplicación Web:    http://localhost:8080
+   🌐 Aplicación Web:    http://localhost:8090
    🗄️  phpMyAdmin:        http://localhost:8081
-   🔍 Verificador:       http://localhost:8080/verificar.php
+   🔍 Verificador:       http://localhost:8090/verificar.php
    
    MySQL:
    ------
    Host:     localhost
-   Puerto:   3306
+   Puerto:   3307
    Usuario:  root
    Pass:     rootpassword
    DB:       proyecto_cad

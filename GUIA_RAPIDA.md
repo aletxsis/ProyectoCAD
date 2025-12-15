@@ -17,13 +17,13 @@ chmod +x iniciar.sh
 
 ### 2️⃣ Verificar el Sistema
 
-Abre en tu navegador: http://localhost:8080/verificar.php
+Abre en tu navegador: http://localhost:8090/verificar.php
 
 Todos los checks deben estar en ✅ verde.
 
 ### 3️⃣ Iniciar Sesión
 
-Ve a: http://localhost:8080
+Ve a: http://localhost:8090
 
 **Credenciales por defecto:**
 - Usuario: `admin`
@@ -33,9 +33,9 @@ Ve a: http://localhost:8080
 
 | Servicio | URL | Descripción |
 |----------|-----|-------------|
-| Aplicación Web | http://localhost:8080 | Sistema principal |
+| Aplicación Web | http://localhost:8090 | Sistema principal |
 | phpMyAdmin | http://localhost:8081 | Gestión de BD |
-| Verificador | http://localhost:8080/verificar.php | Diagnóstico |
+| Verificador | http://localhost:8090/verificar.php | Diagnóstico |
 
 ## 👤 Gestión de Usuarios
 
@@ -89,7 +89,7 @@ docker exec -it proyectocad_db mysql -u root -prootpassword proyecto_cad
 ### Credenciales MySQL
 
 - **Host:** localhost
-- **Puerto:** 3306
+- **Puerto:** 3307
 - **Usuario:** root
 - **Contraseña:** rootpassword
 - **Base de datos:** proyecto_cad
