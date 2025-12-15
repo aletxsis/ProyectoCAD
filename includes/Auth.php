@@ -8,6 +8,7 @@ class Auth {
     public static function login($identificador, $password) {
         $db = Database::getInstance()->getConnection();
         
+        // Intentar login como usuario (Directivo/Gestión)
         $stmt = $db->prepare("
             SELECT u.*, t.nombre as tipo_usuario_nombre 
             FROM usuarios u
@@ -25,7 +26,31 @@ class Auth {
             $_SESSION['tipo_usuario_id'] = $usuario['tipo_usuario_id'];
             $_SESSION['tipo_usuario_nombre'] = $usuario['tipo_usuario_nombre'];
             $_SESSION['cargo'] = $usuario['cargo'];
+            $_SESSION['correo'] = $usuario['correo'] ?? '';
             $_SESSION['foto_perfil'] = $usuario['foto_perfil'];
+            $_SESSION['es_alumno'] = false;
+            $_SESSION['last_activity'] = time();
+            
+            return true;
+        }
+        
+        // Si no es usuario, intentar login como alumno
+        $stmt = $db->prepare("
+            SELECT * FROM alumnos 
+            WHERE identificador = ? AND activo = 1
+        ");
+        $stmt->execute([$identificador]);
+        $alumno = $stmt->fetch();
+        
+        if ($alumno && password_verify($password, $alumno['password'])) {
+            $_SESSION['usuario_id'] = $alumno['id'];
+            $_SESSION['identificador'] = $alumno['identificador'];
+            $_SESSION['nombre_completo'] = $alumno['nombre_completo'];
+            $_SESSION['tipo_usuario_id'] = 3; // Tipo Alumno
+            $_SESSION['tipo_usuario_nombre'] = 'Alumno';
+            $_SESSION['edad'] = $alumno['edad'];
+            $_SESSION['foto_perfil'] = $alumno['foto_perfil'];
+            $_SESSION['es_alumno'] = true;
             $_SESSION['last_activity'] = time();
             
             return true;
@@ -58,6 +83,14 @@ class Auth {
         return self::isLoggedIn() && $_SESSION['tipo_usuario_id'] == 1;
     }
     
+    public static function isGestion() {
+        return self::isLoggedIn() && $_SESSION['tipo_usuario_id'] == 2;
+    }
+    
+    public static function isAlumno() {
+        return self::isLoggedIn() && isset($_SESSION['es_alumno']) && $_SESSION['es_alumno'] === true;
+    }
+    
     public static function requireLogin() {
         if (!self::isLoggedIn()) {
             header('Location: /login.php');
@@ -73,19 +106,44 @@ class Auth {
         }
     }
     
+    public static function requireGestion() {
+        self::requireLogin();
+        if (!self::isGestion()) {
+            header('Location: /index.php?error=no_permission');
+            exit;
+        }
+    }
+    
+    public static function requireAlumno() {
+        self::requireLogin();
+        if (!self::isAlumno()) {
+            header('Location: /index.php?error=no_permission');
+            exit;
+        }
+    }
+    
     public static function getCurrentUser() {
         if (!self::isLoggedIn()) {
             return null;
         }
         
-        return [
+        $user = [
             'id' => $_SESSION['usuario_id'],
             'identificador' => $_SESSION['identificador'],
             'nombre_completo' => $_SESSION['nombre_completo'],
             'tipo_usuario_id' => $_SESSION['tipo_usuario_id'],
             'tipo_usuario_nombre' => $_SESSION['tipo_usuario_nombre'],
-            'cargo' => $_SESSION['cargo'],
-            'foto_perfil' => $_SESSION['foto_perfil']
+            'foto_perfil' => $_SESSION['foto_perfil'] ?? '',
+            'es_alumno' => $_SESSION['es_alumno'] ?? false
         ];
+        
+        if (isset($_SESSION['es_alumno']) && $_SESSION['es_alumno']) {
+            $user['edad'] = $_SESSION['edad'] ?? 0;
+        } else {
+            $user['cargo'] = $_SESSION['cargo'] ?? '';
+            $user['correo'] = $_SESSION['correo'] ?? '';
+        }
+        
+        return $user;
     }
 }

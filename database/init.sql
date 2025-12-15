@@ -1,5 +1,5 @@
--- Base de datos para Proyecto CAD
--- Sistema de gestión de usuarios
+-- Base de datos para Proyecto CAD (SAES 2.0)
+-- Sistema de gestión de calificaciones
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `tipo_usuario` (
 
 -- Insertar tipos de usuario
 INSERT INTO `tipo_usuario` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Directivo', 'Usuario con permisos para gestionar usuarios de tipo gestión'),
-(2, 'Gestión', 'Usuario gestionado por directivos'),
-(3, 'Operativo', 'Usuario operativo del sistema');
+(1, 'Directivo', 'Administrador - Gestiona usuarios de tipo Gestión'),
+(2, 'Gestión', 'Puede inscribir alumnos y asignar materias/calificaciones'),
+(3, 'Alumno', 'Estudiante - Solo ve sus materias y calificaciones');
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
