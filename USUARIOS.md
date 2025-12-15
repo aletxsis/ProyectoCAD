@@ -28,11 +28,11 @@
 
 | Identificador | Nombre Completo | Cargo |
 |---------------|-----------------|-------|
-| `gestor1` | María Elena Torres Ramírez | Gerente de Ventas |
-| `gestor2` | Juan Carlos Mendoza Silva | Gerente de Marketing |
-| `gestor3` | Patricia Hernández Cruz | Gerente de Finanzas |
-| `gestor4` | Luis Alberto Flores Vega | Gerente de Logística |
-| `gestor5` | Carmen Beatriz Morales Díaz | Gerente de Recursos Humanos |
+| `gestion1` | María Elena Torres Ramírez | Gerente de Ventas |
+| `gestion2` | Juan Carlos Mendoza Silva | Gerente de Marketing |
+| `gestion3` | Patricia Hernández Cruz | Gerente de Finanzas |
+| `gestion4` | Luis Alberto Flores Vega | Gerente de Logística |
+| `gestion5` | Carmen Beatriz Morales Díaz | Gerente de Recursos Humanos |
 
 **Permisos:**
 - ✅ Acceso al sistema
@@ -42,16 +42,16 @@
 
 ---
 
-## 🔧 USUARIOS OPERATIVOS (Tipo 3)
-*Personal operativo del sistema*
+## 🎓 USUARIOS ESTUDIANTES (Tipo 3)
+*Estudiantes del sistema*
 
 | Identificador | Nombre Completo | Cargo |
 |---------------|-----------------|-------|
-| `operador1` | Diego Alejandro Castro Ruiz | Analista de Datos |
-| `operador2` | Sofía Gabriela Ortiz Medina | Coordinadora de Proyectos |
-| `operador3` | Miguel Ángel Vargas López | Técnico de Soporte |
-| `operador4` | Daniela Isabel Ramos Gutiérrez | Asistente Administrativa |
-| `operador5` | Fernando José Jiménez Navarro | Operador de Sistema |
+| `estudiante1` | Diego Alejandro Castro Ruiz | Estudiante de Ingeniería |
+| `estudiante2` | Sofía Gabriela Ortiz Medina | Estudiante de Administración |
+| `estudiante3` | Miguel Ángel Vargas López | Estudiante de Sistemas |
+| `estudiante4` | Daniela Isabel Ramos Gutiérrez | Estudiante de Diseño |
+| `estudiante5` | Fernando José Jiménez Navarro | Estudiante de Marketing |
 
 **Permisos:**
 - ✅ Acceso al sistema
@@ -74,14 +74,14 @@ Resultado: Acceso completo, puede gestionar usuarios
 
 #### 2. Login como Gestión
 ```
-Usuario: gestor1
+Usuario: gestion1
 Contraseña: admin123
 Resultado: Acceso básico, no puede gestionar usuarios
 ```
 
-#### 3. Login como Operativo
+#### 3. Login como Estudiante
 ```
-Usuario: operador1
+Usuario: estudiante1
 Contraseña: admin123
 Resultado: Acceso básico, funcionalidades limitadas
 ```
@@ -94,7 +94,7 @@ Resultado: Acceso básico, funcionalidades limitadas
 |------|----------|---------------------|
 | **Directivo** | 3 | Gestión completa de usuarios de Gestión |
 | **Gestión** | 5 | Acceso al sistema, perfil propio |
-| **Operativo** | 5 | Acceso básico al sistema |
+| **Estudiante** | 5 | Acceso básico al sistema |
 | **TOTAL** | **13 usuarios** | - |
 
 ---

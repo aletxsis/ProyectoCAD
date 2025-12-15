@@ -1,0 +1,10 @@
+UPDATE usuarios SET identificador = 'gestion1', cargo = 'Gerente de Ventas' WHERE identificador = 'gestor1';
+UPDATE usuarios SET identificador = 'gestion2', cargo = 'Gerente de Marketing' WHERE identificador = 'gestor2';
+UPDATE usuarios SET identificador = 'gestion3', cargo = 'Gerente de Finanzas' WHERE identificador = 'gestor3';
+UPDATE usuarios SET identificador = 'gestion4', cargo = 'Gerente de Logística' WHERE identificador = 'gestor4';
+UPDATE usuarios SET identificador = 'gestion5', cargo = 'Gerente de RRHH' WHERE identificador = 'gestor5';
+UPDATE usuarios SET identificador = 'estudiante1', cargo = 'Estudiante de Ingeniería' WHERE identificador = 'operador1';
+UPDATE usuarios SET identificador = 'estudiante2', cargo = 'Estudiante de Administración' WHERE identificador = 'operador2';
+UPDATE usuarios SET identificador = 'estudiante3', cargo = 'Estudiante de Sistemas' WHERE identificador = 'operador3';
+UPDATE usuarios SET identificador = 'estudiante4', cargo = 'Estudiante de Diseño' WHERE identificador = 'operador4';
+UPDATE usuarios SET identificador = 'estudiante5', cargo = 'Estudiante de Marketing' WHERE identificador = 'operador5';
