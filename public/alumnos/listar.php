@@ -1,21 +1,21 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/Database.php';
 require_once __DIR__ . '/../../includes/Auth.php';
-require_once __DIR__ . '/../../includes/Usuario.php';
+require_once __DIR__ . '/../../includes/Alumno.php';
 
-Auth::requireDirectivo();
+// Solo usuarios de Gestión pueden acceder
+Auth::requireGestion();
 
-$usuario = new Usuario();
-$usuarios = $usuario->getUsuariosGestion();
+$alumno = new Alumno();
+$alumnos = $alumno->getAll();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios de Gestión - SAES 2.0</title>
+    <title>Alumnos - SAES 2.0</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -24,8 +24,8 @@ $usuarios = $usuario->getUsuariosGestion();
     <div class="container">
         <div class="dashboard">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h1>Usuarios de Gestión</h1>
-                <a href="crear.php" class="btn btn-success">+ Crear Usuario</a>
+                <h1>📋 Gestión de Alumnos</h1>
+                <a href="crear.php" class="btn btn-success">➕ Inscribir Nuevo Alumno</a>
             </div>
             
             <?php if (isset($_GET['success'])): ?>
@@ -33,13 +33,13 @@ $usuarios = $usuario->getUsuariosGestion();
                     <?php
                     switch($_GET['success']) {
                         case 'created':
-                            echo 'Usuario creado exitosamente';
+                            echo '✅ Alumno inscrito exitosamente';
                             break;
                         case 'updated':
-                            echo 'Usuario actualizado exitosamente';
+                            echo '✅ Alumno actualizado exitosamente';
                             break;
                         case 'deleted':
-                            echo 'Usuario eliminado exitosamente';
+                            echo '✅ Alumno dado de baja exitosamente';
                             break;
                     }
                     ?>
@@ -48,7 +48,7 @@ $usuarios = $usuario->getUsuariosGestion();
             
             <?php if (isset($_GET['error'])): ?>
                 <div class="alert alert-error">
-                    Error: <?php echo htmlspecialchars($_GET['error']); ?>
+                    ❌ Error: <?php echo htmlspecialchars($_GET['error']); ?>
                 </div>
             <?php endif; ?>
             
@@ -57,51 +57,51 @@ $usuarios = $usuario->getUsuariosGestion();
                     <thead>
                         <tr>
                             <th>Foto</th>
-                            <th>Identificador</th>
+                            <th>Matrícula</th>
                             <th>Nombre Completo</th>
-                            <th>Correo</th>
+                            <th>Edad</th>
                             <th>Estado</th>
-                            <th>Fecha Creación</th>
+                            <th>Fecha Inscripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($usuarios)): ?>
+                        <?php if (empty($alumnos)): ?>
                             <tr>
                                 <td colspan="7" style="text-align: center; padding: 40px;">
-                                    No hay usuarios de gestión registrados
+                                    No hay alumnos registrados
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php foreach ($usuarios as $u): ?>
+                            <?php foreach ($alumnos as $a): ?>
                                 <tr>
                                     <td>
-                                        <?php if ($u['foto_perfil']): ?>
-                                            <img src="/uploads/<?php echo htmlspecialchars($u['foto_perfil']); ?>" 
+                                        <?php if ($a['foto_perfil']): ?>
+                                            <img src="/uploads/<?php echo htmlspecialchars($a['foto_perfil']); ?>" 
                                                  alt="Foto" class="user-photo">
                                         <?php else: ?>
                                             <div class="user-photo" style="background: #ddd; display: flex; align-items: center; justify-content: center;">
-                                                👤
+                                                🎓
                                             </div>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?php echo htmlspecialchars($u['identificador']); ?></td>
-                                    <td><?php echo htmlspecialchars($u['nombre_completo']); ?></td>
-                                    <td><?php echo htmlspecialchars($u['correo'] ?? '-'); ?></td>
+                                    <td><strong><?php echo htmlspecialchars($a['identificador']); ?></strong></td>
+                                    <td><?php echo htmlspecialchars($a['nombre_completo']); ?></td>
+                                    <td><?php echo $a['edad']; ?> años</td>
                                     <td>
-                                        <span class="badge <?php echo $u['activo'] ? 'badge-success' : 'badge-danger'; ?>">
-                                            <?php echo $u['activo'] ? 'Activo' : 'Inactivo'; ?>
+                                        <span class="badge <?php echo $a['activo'] ? 'badge-success' : 'badge-danger'; ?>">
+                                            <?php echo $a['activo'] ? 'Activo' : 'Inactivo'; ?>
                                         </span>
                                     </td>
-                                    <td><?php echo date('d/m/Y H:i', strtotime($u['fecha_creacion'])); ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($a['fecha_creacion'])); ?></td>
                                     <td>
                                         <div class="actions-cell">
-                                            <a href="editar.php?id=<?php echo $u['id']; ?>" class="btn btn-warning btn-sm">
+                                            <a href="editar.php?id=<?php echo $a['id']; ?>" class="btn btn-warning btn-sm">
                                                 ✏️ Editar
                                             </a>
-                                            <a href="eliminar.php?id=<?php echo $u['id']; ?>" 
+                                            <a href="eliminar.php?id=<?php echo $a['id']; ?>" 
                                                class="btn btn-danger btn-sm"
-                                               onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                               onclick="return confirm('¿Estás seguro de dar de baja a este alumno?')">
                                                 🗑️ Eliminar
                                             </a>
                                         </div>
@@ -111,6 +111,10 @@ $usuarios = $usuario->getUsuariosGestion();
                         <?php endif; ?>
                     </tbody>
                 </table>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="/gestion/dashboard.php" class="btn btn-primary">← Volver al Dashboard</a>
             </div>
         </div>
     </div>

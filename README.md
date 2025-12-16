@@ -1,247 +1,312 @@
-# Proyecto CAD - Sistema de Gestión de Usuarios
+# 🎓 SAES 2.0 - Sistema de Administración Escolar en la Nube
 
-Sistema web desarrollado en PHP y MySQL para la gestión de usuarios con tres niveles de acceso: Directivo, Gestión y Operativo. Compatible con Docker y Azure.
+Sistema web de gestión de calificaciones de estudiantes desarrollado en PHP y MySQL, compatible con Azure y Docker.
 
-## 📋 Características
+## 📋 Características Principales
 
-- **Sistema de autenticación** con control de sesiones
-- **Gestión de usuarios** tipo Gestión por parte de usuarios Directivos
-- **CRUD completo** para usuarios (Crear, Leer, Actualizar, Eliminar)
-- **Subida de fotos** de perfil
-- **Auditoría** de cambios en usuarios
-- **Interfaz responsive** moderna
-- **Compatible con Docker** para desarrollo local
-- **Listo para desplegar en Azure**
+### Tres Tipos de Usuarios
 
-## 🛠️ Tecnologías
+1. **👔 Directivo (Administrador)**
+   - Gestionar usuarios de tipo Gestión (crear, editar, eliminar)
+   - Ver estadísticas del sistema
+   - Acceso completo a la plataforma
 
-- PHP 8.2
-- MySQL 8.0
-- Docker & Docker Compose
-- Azure App Service (compatible)
-- HTML5, CSS3
+2. **👨‍💼 Gestión**
+   - Inscribir nuevos alumnos
+   - Asignar materias a estudiantes
+   - Registrar calificaciones (3 parciales)
+   - Ver reportes de alumnos
 
-## 📁 Estructura del Proyecto
+3. **🎓 Alumno**
+   - Ver sus materias inscritas
+   - Consultar calificaciones por parcial
+   - Ver boleta de calificaciones
+   - Consultar promedio general
 
-```
-ProyectoCAD/
-├── config/                 # Configuración
-│   ├── config.php         # Configuración general
-│   ├── database.php       # Configuración de BD (crear desde .example)
-│   └── database.example.php
-├── database/              # Scripts de base de datos
-│   └── init.sql          # Script de inicialización
-├── docker/               # Configuración Docker
-│   └── php.ini          # Configuración PHP
-├── includes/            # Clases PHP
-│   ├── Auth.php        # Autenticación
-│   ├── Database.php    # Conexión a BD
-│   └── Usuario.php     # Gestión de usuarios
-├── public/             # Archivos públicos
-│   ├── css/
-│   │   └── style.css
-│   ├── includes/
-│   │   ├── header.php
-│   │   └── footer.php
-│   ├── usuarios/
-│   │   ├── listar.php
-│   │   ├── crear.php
-│   │   ├── editar.php
-│   │   └── eliminar.php
-│   ├── auth/
-│   │   └── logout.php
-│   ├── index.php       # Dashboard
-│   └── login.php       # Inicio de sesión
-├── uploads/            # Fotos de perfil
-├── .env.example       # Variables de entorno
-├── .gitignore
-├── docker-compose.yml
-├── Dockerfile
-├── AZURE_DEPLOY.md   # Guía de despliegue Azure
-└── README.md
-```
+### Sistema de Calificaciones
 
-## 🚀 Instalación y Uso con Docker
+- **Parciales:** 3 calificaciones parciales por materia
+- **Calificación Final:** Promedio automático de los 3 parciales
+- **Calificación Mínima:** 70 para aprobar
+- **Triggers MySQL:** Cálculo automático del promedio
 
-### Prerrequisitos
+## 🚀 Inicio Rápido con Docker
+
+### Requisitos Previos
 
 - Docker Desktop instalado
-- Git (opcional)
+- Puertos disponibles: 8090 (Web), 3307 (MySQL), 8082 (phpMyAdmin)
 
-### Pasos de instalación
+### Instalación
 
-1. **Clonar o descargar el proyecto**
-
+1. **Clonar el repositorio**
 ```bash
-cd c:\Users\Rulig\Downloads\proy_extra_compa\ProyectoCAD
+git clone <tu-repositorio>
+cd ProyectoCAD
 ```
 
-2. **Configurar el archivo de base de datos**
-
-```bash
-# En Windows PowerShell:
-copy config\database.example.php config\database.php
-
-# En Linux/Mac:
-cp config/database.example.php config/database.php
-```
-
-3. **Levantar los contenedores Docker**
-
+2. **Iniciar los contenedores**
 ```bash
 docker-compose up -d
 ```
 
-Esto iniciará:
-- Servidor web PHP en http://localhost:8080
-- Base de datos MySQL en puerto 3306
-- phpMyAdmin en http://localhost:8081
+3. **Acceder a la aplicación**
+- **Web:** http://localhost:8090
+- **phpMyAdmin:** http://localhost:8082
 
-4. **Acceder a la aplicación**
+4. **Credenciales de acceso**
+Ver archivo [CREDENCIALES.md](CREDENCIALES.md)
 
-Abre tu navegador en: http://localhost:8090
+## 🏗️ Estructura del Proyecto
 
-**Credenciales de acceso (todos con contraseña: admin123):**
+```
+ProyectoCAD/
+├── config/
+│   ├── config.php              # Configuración general
+│   └── database.php            # Configuración de base de datos
+├── database/
+│   └── saes_schema.sql         # Schema completo del SAES 2.0
+├── includes/
+│   ├── Auth.php                # Autenticación y autorización
+│   ├── Database.php            # Conexión a base de datos
+│   └── Usuario.php             # Clase de gestión de usuarios
+├── public/
+│   ├── directivo/
+│   │   └── dashboard.php       # Dashboard del directivo
+│   ├── gestion/
+│   │   └── dashboard.php       # Dashboard de gestión
+│   ├── alumno/
+│   │   └── dashboard.php       # Dashboard del alumno (boleta)
+│   ├── usuarios/               # CRUD de usuarios Gestión
+│   │   ├── listar.php
+│   │   ├── crear.php
+│   │   ├── editar.php
+│   │   └── eliminar.php
+│   ├── css/
+│   │   └── style.css           # Estilos
+│   ├── includes/
+│   │   ├── header.php
+│   │   └── footer.php
+│   ├── index.php               # Punto de entrada (redirección)
+│   └── login.php               # Página de inicio de sesión
+├── uploads/                    # Fotos de perfil (futuro Azure Blob)
+├── docker-compose.yml          # Orquestación de contenedores
+├── Dockerfile                  # Imagen del servidor web
+└── README.md                   # Este archivo
+```
 
-**Directivos:**
-- `admin` - Carlos Rodríguez Martínez (Director General)
-- `director1` - Ana María González López (Directora de Operaciones)
-- `director2` - Roberto Sánchez Pérez (Director de RRHH)
+## 🗃️ Base de Datos
 
-**Gestión:**
-- `gestor1` - María Elena Torres Ramírez (Gerente de Ventas)
-- `gestor2` - Juan Carlos Mendoza Silva (Gerente de Marketing)
-- `gestor3` - Patricia Hernández Cruz (Gerente de Finanzas)
-- `gestor4` - Luis Alberto Flores Vega (Gerente de Logística)
-- `gestor5` - Carmen Beatriz Morales Díaz (Gerente de RRHH)
+### Tablas Principales
 
-**Operativos:**
-- `operador1` - Diego Alejandro Castro Ruiz (Analista de Datos)
-- `operador2` - Sofía Gabriela Ortiz Medina (Coordinadora)
-- `operador3` - Miguel Ángel Vargas López (Técnico de Soporte)
-- `operador4` - Daniela Isabel Ramos Gutiérrez (Asistente Admin)
-- `operador5` - Fernando José Jiménez Navarro (Operador)
+1. **tipo_usuario** - Tipos de usuarios (Directivo, Gestión, Alumno)
+2. **usuarios** - Usuarios Directivo y Gestión
+3. **alumnos** - Estudiantes del sistema
+4. **materias** - Catálogo de materias
+5. **inscripciones** - Relación alumno-materia con calificaciones
+6. **auditoria** - Registro de cambios
 
-## 👥 Tipos de Usuario
+### Diagrama de Relaciones
 
-### 1. Directivo
-- **Permisos:** Gestión completa de usuarios tipo Gestión
-- **Funciones:**
-  - Crear usuarios de gestión
-  - Editar usuarios de gestión
-  - Eliminar usuarios de gestión
-  - Ver listado de usuarios
+```
+usuarios (1) ----< (N) auditoria
+alumnos (1) ----< (N) inscripciones
+materias (1) ----< (N) inscripciones
+```
 
-### 2. Gestión
-- **Permisos:** Usuarios gestionados por directivos
-- Campos: Identificador, Nombre completo, Contraseña, Foto de perfil, Cargo
+### Campos Especiales
 
-### 3. Operativo
-- Usuario operativo del sistema (pendiente implementación)
+#### Tabla `usuarios` (Directivo/Gestión)
+- `identificador` - Usuario único
+- `nombre_completo` - Nombre del usuario
+- `correo` - Email (solo Gestión)
+- `password` - Hash bcrypt
+- `cargo` - Puesto (solo Directivo)
+- `tipo_usuario_id` - 1=Directivo, 2=Gestión
 
-## 📊 Base de Datos
+#### Tabla `alumnos`
+- `identificador` - Matrícula del estudiante
+- `nombre_completo` - Nombre del alumno
+- `edad` - Edad del estudiante
+- `password` - Hash bcrypt
+- `foto_perfil` - Ruta de la foto
 
-La base de datos se inicializa automáticamente con:
-- 3 tipos de usuario
-- 1 usuario directivo por defecto
-- Tablas de auditoría
+#### Tabla `inscripciones`
+- `alumno_id` - FK a alumnos
+- `materia_id` - FK a materias
+- `parcial_1`, `parcial_2`, `parcial_3` - Calificaciones
+- `calificacion_final` - Promedio automático (trigger)
 
-### Tablas principales:
-- `tipo_usuario` - Tipos de usuario
-- `usuarios` - Información de usuarios
-- `auditoria_usuarios` - Registro de cambios
+## 🔐 Seguridad
 
-## 🔒 Seguridad
+- **Passwords:** Hasheados con bcrypt (PASSWORD_BCRYPT)
+- **Sesiones:** Timeout automático (2 horas)
+- **Autorización:** Middleware por rol (requireDirectivo, requireGestion, requireAlumno)
+- **SQL Injection:** PDO con prepared statements
+- **XSS:** htmlspecialchars en todas las salidas
 
-- Contraseñas hasheadas con bcrypt
-- Protección contra SQL Injection (PDO)
-- Control de sesiones con timeout
-- Validación de tipos de archivo en uploads
-- Auditoría de todas las acciones
+## 📝 Próximas Funcionalidades
 
-## 🐳 Comandos Docker Útiles
+### Pendientes (Siguiente Sprint)
+
+1. **✅ CRUD de Alumnos** (Gestión puede crear/editar/eliminar)
+   - Crear: `/alumnos/crear.php`
+   - Listar: `/alumnos/listar.php`
+   - Editar: `/alumnos/editar.php`
+   - Eliminar: `/alumnos/eliminar.php`
+
+2. **✅ Gestión de Materias**
+   - Listar materias: `/materias/listar.php`
+   - Ver alumnos inscritos por materia
+
+3. **✅ Asignación de Calificaciones**
+   - Formulario de captura: `/calificaciones/asignar.php`
+   - Seleccionar alumno, materia y parcial
+   - Validación de calificaciones (0-100)
+
+4. **🔜 Azure Blob Storage** (Fotos de perfil)
+   - Integrar Azure SDK for PHP
+   - Subir fotos a blob storage
+   - Actualizar URLs en base de datos
+
+5. **🔜 Validación de Contraseñas**
+   - Al menos 8 caracteres
+   - 1 mayúscula, 1 minúscula
+   - 1 número, 1 carácter especial
+   - Regex: `/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/`
+
+6. **🔜 Reportes y Estadísticas**
+   - Promedio por materia
+   - Índice de aprobación
+   - Alumnos en riesgo (<70)
+
+## ☁️ Despliegue en Azure
+
+### Arquitectura Recomendada
+
+1. **Azure App Service** (Web tier)
+   - PHP 8.2 runtime
+   - 3+ instancias para load balancer
+   - Escalado automático
+
+2. **Azure Database for MySQL**
+   - Flexible Server
+   - SSL habilitado
+   - Firewall configurado
+
+3. **Azure Blob Storage**
+   - Container para fotos de perfil
+   - Acceso público de lectura
+   - CDN para mejor rendimiento
+
+4. **Azure Load Balancer**
+   - Distribución entre 3 VMs
+   - Health probes en `/health.php`
+   - Session affinity
+
+### Pasos de Despliegue
+
+Ver archivo `AZURE_DEPLOY.md` para instrucciones detalladas.
 
 ```bash
+# 1. Crear recursos en Azure
+az group create --name saes-rg --location eastus
+az mysql flexible-server create --resource-group saes-rg --name saes-mysql
+az appservice plan create --name saes-plan --resource-group saes-rg
+
+# 2. Configurar Web App
+az webapp create --resource-group saes-rg --plan saes-plan --name saes-web
+az webapp config set --php-version 8.2
+
+# 3. Configurar variables de entorno
+az webapp config appsettings set --settings DB_HOST=<mysql-host> DB_NAME=proyecto_cad
+```
+
+## 🛠️ Comandos Útiles
+
+### Docker
+
+```bash
+# Iniciar contenedores
+docker-compose up -d
+
 # Ver logs
-docker-compose logs -f web
+docker-compose logs -f
 
-# Detener contenedores
-docker-compose down
-
-# Reiniciar contenedores
-docker-compose restart
-
-# Acceder al contenedor web
-docker exec -it proyectocad_web bash
+# Reiniciar con base de datos limpia
+docker-compose down -v && docker-compose up -d
 
 # Acceder a MySQL
-docker exec -it proyectocad_db mysql -u root -prootpassword proyecto_cad
+docker exec -it proyectocad_db mysql -uroot -prootpassword proyecto_cad
+
+# Ver usuarios registrados
+docker exec proyectocad_db mysql -uroot -prootpassword proyecto_cad -e "SELECT * FROM usuarios"
 ```
 
-## 🌐 Despliegue en Azure
+### Base de Datos
 
-Consulta el archivo [AZURE_DEPLOY.md](AZURE_DEPLOY.md) para instrucciones detalladas de despliegue en Azure App Service.
+```sql
+-- Ver todas las inscripciones con calificaciones
+SELECT a.nombre_completo, m.nombre, i.parcial_1, i.parcial_2, i.parcial_3, i.calificacion_final
+FROM inscripciones i
+INNER JOIN alumnos a ON i.alumno_id = a.id
+INNER JOIN materias m ON i.materia_id = m.id;
 
-## 📝 Configuración de Producción
+-- Promedio general de un alumno
+SELECT AVG(calificacion_final) as promedio
+FROM inscripciones
+WHERE alumno_id = 1 AND calificacion_final IS NOT NULL;
 
-Para producción, asegúrate de:
-
-1. Cambiar las contraseñas por defecto
-2. Configurar variables de entorno en `.env`
-3. Deshabilitar `display_errors` en `config/config.php`
-4. Configurar SSL/HTTPS
-5. Actualizar `BASE_URL` en la configuración
-6. Configurar backups automáticos de la base de datos
-
-## 🧪 Testing
-
-### Pruebas básicas:
-
-1. **Login:**
-   - Iniciar sesión con credenciales válidas
-   - Intentar con credenciales inválidas
-   - Verificar timeout de sesión
-
-2. **CRUD de Usuarios:**
-   - Crear usuario de gestión
-   - Editar información
-   - Subir foto de perfil
-   - Eliminar usuario
-   - Verificar auditoría
-
-3. **Seguridad:**
-   - Intentar acceder sin autenticación
-   - Verificar que usuarios no-directivos no accedan a gestión
-
-## 🛠️ Mantenimiento
-
-### Backup de base de datos:
-
-```bash
-docker exec proyectocad_db mysqldump -u root -prootpassword proyecto_cad > backup.sql
+-- Materias con más reprobados
+SELECT m.nombre, COUNT(*) as reprobados
+FROM inscripciones i
+INNER JOIN materias m ON i.materia_id = m.id
+WHERE i.calificacion_final < 70
+GROUP BY m.id
+ORDER BY reprobados DESC;
 ```
 
-### Restaurar base de datos:
+## 📊 Testing
 
-```bash
-docker exec -i proyectocad_db mysql -u root -prootpassword proyecto_cad < backup.sql
-```
+### Casos de Prueba
+
+1. **Login como Directivo**
+   - Usuario: `admin`
+   - Contraseña: `admin123`
+   - Debe redirigir a `/directivo/dashboard.php`
+   - Debe mostrar estadísticas de usuarios/alumnos/materias
+
+2. **Login como Gestión**
+   - Usuario: `gestion1`
+   - Contraseña: `admin123`
+   - Debe redirigir a `/gestion/dashboard.php`
+   - Debe tener acceso a inscribir alumnos y asignar calificaciones
+
+3. **Login como Alumno**
+   - Matrícula: `2021630001`
+   - Contraseña: `admin123`
+   - Debe redirigir a `/alumno/dashboard.php`
+   - Debe mostrar boleta con calificaciones
+   - Debe calcular promedio correctamente
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto es de uso educativo.
+Este proyecto es parte de un proyecto académico de Cómputo en la Nube.
 
-## 👨‍💻 Soporte
+## 📞 Soporte
 
-Para problemas o preguntas, consulta la documentación o crea un issue en el repositorio.
+- Ver [CREDENCIALES.md](CREDENCIALES.md) para acceso al sistema
+- Documentación de Azure en `AZURE_DEPLOY.md`
+- Issues: Reportar en GitHub
 
-## 🔄 Próximas Mejoras
+---
 
-- [ ] Implementar funcionalidades para usuario Operativo
-- [ ] Agregar paginación en listados
-- [ ] Implementar búsqueda y filtros
-- [ ] Agregar exportación a Excel/PDF
-- [ ] Implementar recuperación de contraseña
-- [ ] Agregar autenticación de dos factores
-- [ ] Dashboard con estadísticas
-- [ ] API REST
+**Desarrollado con ❤️ para el curso de Cómputo en la Nube**

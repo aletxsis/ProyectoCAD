@@ -1,34 +1,29 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/Database.php';
 require_once __DIR__ . '/../../includes/Auth.php';
-require_once __DIR__ . '/../../includes/Usuario.php';
+require_once __DIR__ . '/../../includes/Alumno.php';
 
-Auth::requireDirectivo();
+Auth::requireGestion();
 
-$usuario = new Usuario();
+$alumno = new Alumno();
 $error = '';
-$success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $datos = [
             'identificador' => $_POST['identificador'] ?? '',
             'nombre_completo' => $_POST['nombre_completo'] ?? '',
+            'edad' => $_POST['edad'] ?? '',
             'password' => $_POST['password'] ?? '',
-            'cargo' => $_POST['cargo'] ?? '',
         ];
-        
-        // Agregar correo si se proporcionó
-        $datos['correo'] = $_POST['correo'] ?? '';
         
         // Manejar subida de foto
         if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
-            $datos['foto_perfil'] = $usuario->subirFotoPerfil($_FILES['foto_perfil']);
+            $datos['foto_perfil'] = $alumno->subirFotoPerfil($_FILES['foto_perfil']);
         }
         
-        $nuevoId = $usuario->crear($datos);
+        $nuevoId = $alumno->crear($datos);
         header('Location: listar.php?success=created');
         exit;
         
@@ -42,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Usuario - SAES 2.0</title>
+    <title>Inscribir Alumno - SAES 2.0</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -50,26 +45,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <div class="container">
         <div class="form-container">
-            <h1>Crear Usuario de Gestión</h1>
+            <h1>➕ Inscribir Nuevo Alumno</h1>
             
             <?php if ($error): ?>
                 <div class="alert alert-error">
-                    <?php echo htmlspecialchars($error); ?>
+                    ❌ <?php echo htmlspecialchars($error); ?>
                 </div>
             <?php endif; ?>
             
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="identificador">Identificador *</label>
+                    <label for="identificador">Matrícula *</label>
                     <input type="text" id="identificador" name="identificador" required
+                           placeholder="Ej: 2021630001"
                            value="<?php echo htmlspecialchars($_POST['identificador'] ?? ''); ?>">
-                    <small>Nombre de usuario único para iniciar sesión</small>
+                    <small>Número de matrícula único del alumno</small>
                 </div>
                 
                 <div class="form-group">
                     <label for="nombre_completo">Nombre Completo *</label>
                     <input type="text" id="nombre_completo" name="nombre_completo" required
+                           placeholder="Ej: Juan Carlos Pérez López"
                            value="<?php echo htmlspecialchars($_POST['nombre_completo'] ?? ''); ?>">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edad">Edad *</label>
+                    <input type="number" id="edad" name="edad" required min="15" max="99"
+                           placeholder="Ej: 20"
+                           value="<?php echo htmlspecialchars($_POST['edad'] ?? ''); ?>">
                 </div>
                 
                 <div class="form-group">
@@ -79,20 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 
                 <div class="form-group">
-                    <label for="correo">Correo Electrónico *</label>
-                    <input type="email" id="correo" name="correo" required
-                           value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>">
-                </div>
-                
-                <div class="form-group">
                     <label for="foto_perfil">Foto de Perfil</label>
                     <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*">
-                    <small>Formatos permitidos: JPG, PNG, GIF. Tamaño máximo: 5MB</small>
+                    <small>Formatos: JPG, PNG, GIF. Máximo 5MB</small>
                 </div>
                 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-success">Crear Usuario</button>
-                    <a href="listar.php" class="btn btn-primary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">✅ Inscribir Alumno</button>
+                    <a href="listar.php" class="btn btn-secondary">❌ Cancelar</a>
                 </div>
             </form>
         </div>
