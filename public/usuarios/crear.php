@@ -74,8 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <div class="form-group">
                     <label for="password">Contraseña *</label>
-                    <input type="password" id="password" name="password" required minlength="6">
-                    <small>Mínimo 6 caracteres</small>
+                    <input type="password" id="password" name="password" required 
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           minlength="8">
+                    <small>Mínimo 8 caracteres con: 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial (@$!%*?&)</small>
                 </div>
                 
                 <div class="form-group">
